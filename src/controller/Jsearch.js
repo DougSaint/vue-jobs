@@ -7,7 +7,7 @@ class JSearchController {
     method: options.method || "GET",
     url: `https://${this.BASE_URL}/${options.url}`,
     params: {
-      query: options.query,
+      ...options.params,
     },
     headers: {
       "X-RapidAPI-Key": this.API_KEY,
@@ -18,7 +18,15 @@ class JSearchController {
   search = async (query) => {
     const options = this.getOptions({
       url: "search",
-      query: `${query}, brasil`,
+      params: { query: `${query}, brasil` },
+    });
+    const response = await axios.request(options);
+    return response.data;
+  };
+
+  getJobDetails = async (id) => {
+    const options = this.getOptions({
+      url: `job-details/${id}`,
     });
     const response = await axios.request(options);
     return response.data;

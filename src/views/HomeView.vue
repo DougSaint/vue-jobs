@@ -17,7 +17,7 @@
     <v-row>
       <v-col cols="12">
         <v-text-field :loading="loading" density="compact" variant="outlined" label="Por qual vaga você está procurando?"
-          append-inner-icon="" single-line hide-details v-model="searchInput" @keyup.enter ="searchJob" >
+          append-inner-icon="" single-line hide-details v-model="searchInput" @keyup.enter="searchJob">
           <template v-slot:append-inner>
             <v-btn :loading="loading" :disabled="loading" icon class="bg-background" @click="searchJob" elevation="0">
               <v-icon>mdi-magnify</v-icon>
@@ -43,7 +43,7 @@
     </v-row>
     <v-row>
       <v-col cols="12" md="6" v-for="job in jobs" :key="job.id">
-      <job-card :job="job"></job-card>
+        <job-card :job="job"></job-card>
       </v-col>
     </v-row>
 
