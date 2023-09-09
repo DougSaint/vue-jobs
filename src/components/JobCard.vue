@@ -15,8 +15,20 @@
 
         </v-card-title>
         <v-card-subtitle class="subheading default_text">
-            <template v-if="job.job_city">{{ job.job_city }}, </template>
-            <template v-if="job.job_state">{{ job.job_state }} -</template> {{ job.job_country }}
+            <div class="flex">
+                <div>
+                    <template v-if="job.job_city">{{ job.job_city }}, </template>
+                    <template v-if="job.job_state">{{ job.job_state }} -</template> {{ job.job_country }}
+                </div>
+                <v-spacer></v-spacer>
+                <div>
+                    <template v-if="job.job_posted_at_datetime_utc">
+                        Publicado em: {{ formatDate(job.job_posted_at_datetime_utc) }}
+                    </template>
+
+                </div>
+
+            </div>
 
         </v-card-subtitle>
         <v-card-text>
@@ -46,7 +58,8 @@
             </template>
         </div>
         <v-card-actions>
-            <v-btn color="info" variant="elevated" class="ml-2 class rounded-lg" append-icon="mdi-arrow-right">Ver
+            <v-btn :href="`job-details/${job.job_id}`" color="background" variant="elevated" class="ml-2 class rounded-lg"
+                append-icon="mdi-arrow-right">Ver
                 detalhes</v-btn>
         </v-card-actions>
     </v-card>
@@ -58,23 +71,22 @@ import { ref } from 'vue';
 const props = defineProps(['job'])
 const job = ref(props.job);
 let job_degree = ref('');
+import dateFormater from '../utils/DateFormater.js';
+import degreeFormmater from '../utils/DegreeFormater';
+
+const formatDate = (dateTime) => dateFormater(dateTime);
 
 const getDegree = () => {
-    for (let required_degree in job?.value.job_required_education) {
-
-        if (job?.value.job_required_education[required_degree] == true) {
-            job_degree.value = job_degree.value + required_degree + ', ';
-        }
-    }
-
-    job_degree.value = job_degree.value.slice(0, -2);
-
-    if (job_degree.value == '') {
-        job_degree.value = 'Nenhum grau de escolaridade requerido';
+    const degree = degreeFormmater(job.value.job_required_education);
+    console.log(degree)
+    const formattedDegrees = degree.filter((item) => item.value).map((item) => item.name).join(', ');
+    if (formattedDegrees) {
+        job_degree.value = formattedDegrees;
+    } else {
+        job_degree.value = 'Não informado';
     }
 };
 
-console.log(job.value)
 onMounted(() => {
     getDegree();
 });
@@ -82,11 +94,12 @@ onMounted(() => {
 </script>
 
 <style scoped>
- .v-chip :deep(.v-chip__content) {
-    display: inline-block !important;
+.v-chip {
+    max-width: 100%;
+    display: block;
+    padding: 5px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-
 }
 </style>

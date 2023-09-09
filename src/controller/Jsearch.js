@@ -1,6 +1,6 @@
 import axios from "axios";
 class JSearchController {
-  API_KEY = "f2ac86e639msh911456ab60056a4p16b4f0jsne917e9b36984";
+  API_KEY = "f467c93fc5mshacc209389987cdfp1e27eajsnebc3d14be48c";
   BASE_URL = "jsearch.p.rapidapi.com";
 
   getOptions = (options) => ({
@@ -8,6 +8,7 @@ class JSearchController {
     url: `https://${this.BASE_URL}/${options.url}`,
     params: {
       ...options.params,
+      query: `${options?.params?.query}, brasil`,
     },
     headers: {
       "X-RapidAPI-Key": this.API_KEY,
@@ -15,18 +16,35 @@ class JSearchController {
     },
   });
 
-  search = async (query) => {
+  search = async (params) => {
     const options = this.getOptions({
       url: "search",
-      params: { query: `${query}, brasil` },
+      params: params,
     });
+    console.log(options);
     const response = await axios.request(options);
+    console.log(response.data);
     return response.data;
   };
 
   getJobDetails = async (id) => {
     const options = this.getOptions({
-      url: `job-details/${id}`,
+      url: `job-details`,
+      params: {
+        job_id: id,
+      },
+    });
+    const response = await axios.request(options);
+    return response.data;
+  };
+
+  paginator = async (query, page) => {
+    const options = this.getOptions({
+      url: "search",
+      params: {
+        query: `${query}, brasil`,
+        page,
+      },
     });
     const response = await axios.request(options);
     return response.data;

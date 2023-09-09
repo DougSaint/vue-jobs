@@ -3,8 +3,10 @@
 
     <v-toolbar-title>
       <div class="d-flex">
+        <a href ="/" class="text-decoration-none">
         <v-icon color="accent">mdi-hammer</v-icon>
         <span class="ml-3">Vue Jobs</span>
+        </a>
       </div>
 
     </v-toolbar-title>
