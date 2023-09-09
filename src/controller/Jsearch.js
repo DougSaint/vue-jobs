@@ -1,6 +1,6 @@
 import axios from "axios";
 class JSearchController {
-  API_KEY = process.env.API_KEY;
+  API_KEY = process.env.VUE_APP_API_URL;
   BASE_URL = "jsearch.p.rapidapi.com";
 
   getOptions = (options) => ({
