@@ -27,7 +27,8 @@
                     </template>
 
                     <template v-else>
-                        <span class="ml-2 pt-2">{{ jobData?.job_city }}</span> - <span>{{ jobData?.job_state }}</span>
+                        <span v-if="jobData.job_city" class="ml-2 pt-2">{{ jobData?.job_city }}</span> <span
+                            v-if="jobData.job_state">{{ jobData?.job_state }}</span>
                     </template>
 
                     <h3 class="text-primary mt-3 text-md">{{ jobData?.employer_name }}</h3>

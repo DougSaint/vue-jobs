@@ -18,7 +18,8 @@
             <div class="flex">
                 <div>
                     <template v-if="job.job_city">{{ job.job_city }}, </template>
-                    <template v-if="job.job_state">{{ job.job_state }} -</template> {{ job.job_country }}
+                    <template v-if="job.job_state">{{ job.job_state }} -</template>
+                    {{ job.job_country }}
                 </div>
                 <v-spacer></v-spacer>
                 <div>
@@ -58,7 +59,7 @@
             </template>
         </div>
         <v-card-actions>
-            <v-btn :href="`job-details/${job.job_id}`" color="background" variant="elevated" class="ml-2 class rounded-lg"
+            <v-btn :href="`job-details/${job.job_id}`" color="background" variant="outlined" class="ml-2 class rounded-lg"
                 append-icon="mdi-arrow-right">Ver
                 detalhes</v-btn>
         </v-card-actions>
@@ -78,7 +79,6 @@ const formatDate = (dateTime) => dateFormater(dateTime);
 
 const getDegree = () => {
     const degree = degreeFormmater(job.value.job_required_education);
-    console.log(degree)
     const formattedDegrees = degree.filter((item) => item.value).map((item) => item.name).join(', ');
     if (formattedDegrees) {
         job_degree.value = formattedDegrees;

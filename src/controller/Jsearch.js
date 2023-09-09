@@ -21,9 +21,7 @@ class JSearchController {
       url: "search",
       params: params,
     });
-    console.log(options);
     const response = await axios.request(options);
-    console.log(response.data);
     return response.data;
   };
 
