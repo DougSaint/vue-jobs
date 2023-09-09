@@ -21,8 +21,8 @@
           label="Digite aqui" variant="outlined" class="border-2 border-primary" hide-details="auto" v-model="searchInput"
           @keyup.enter="searchJob">
           <template v-slot:append-inner>
-            <v-btn :loading="loading" :disabled="loading" icon style="background-color: transparent" @click="searchJob"
-              elevation="0">
+            <v-btn :loading="loading" class="search-btn" :disabled="loading" icon style="background-color: transparent"
+              @click="searchJob" elevation="0">
               <v-icon>mdi-magnify</v-icon>
             </v-btn>
           </template>
@@ -133,4 +133,8 @@ const handleScroll = async ({ done }) => {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.v-input :deep(.v-btn__overlay) {
+  background: none;
+}
+</style>

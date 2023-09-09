@@ -1,6 +1,6 @@
 import axios from "axios";
 class JSearchController {
-  API_KEY = "f467c93fc5mshacc209389987cdfp1e27eajsnebc3d14be48c";
+  API_KEY = process.env.API_KEY;
   BASE_URL = "jsearch.p.rapidapi.com";
 
   getOptions = (options) => ({
