@@ -1,10 +1,9 @@
 // Composables
 import { createRouter, createWebHistory } from "vue-router";
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 console.log(process.env.BASE_URL);
+
+
 const routes = [
   {
     path: "/",
