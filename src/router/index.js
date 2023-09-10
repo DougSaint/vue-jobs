@@ -20,7 +20,19 @@ const routes = [
       {
         path: "",
         name: "Detalhes da Vaga",
-        component: () => import("@/views/JobDetails.vue"),
+        component: () => import("@/views/JobDetailsView.vue"),
+        props: true,
+      },
+    ],
+  },
+  {
+    path: "/about",
+    component: () => import("@/layouts/default/Default.vue"),
+    children: [
+      {
+        path: "",
+        name: "Conseguir mais resultados",
+        component: () => import("@/views/AboutView.vue"),
         props: true,
       },
     ],

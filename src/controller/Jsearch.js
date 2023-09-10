@@ -15,8 +15,16 @@ class JSearchController {
       "X-RapidAPI-Host": this.BASE_URL,
     },
   });
+  getApiKey = () => {
+    const key = localStorage.getItem("apiKey");
+    console.log(key);
+    if (key) {
+      this.API_KEY = key;
+    }
+  };
 
   search = async (params) => {
+    this.getApiKey();
     const options = this.getOptions({
       url: "search",
       params: params,
@@ -26,6 +34,7 @@ class JSearchController {
   };
 
   getJobDetails = async (id) => {
+    this.getApiKey();
     const options = this.getOptions({
       url: `job-details`,
       params: {
@@ -37,6 +46,7 @@ class JSearchController {
   };
 
   paginator = async (query, page) => {
+    this.getApiKey();
     const options = this.getOptions({
       url: "search",
       params: {

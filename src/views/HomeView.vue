@@ -38,6 +38,11 @@
       </v-col>
     </v-row>
     <v-row>
+      <template v-if="loading">
+        <v-col cols="12" md="6" v-for="n in 6">
+          <v-skeleton-loader type="card" class="mt-5" color="primary"></v-skeleton-loader>
+        </v-col>
+      </template>
       <template v-if="jobs?.length === 0 && searchIsComplete">
         <v-col cols="12">
           <v-alert type="error" dismissible>
@@ -52,7 +57,8 @@
         </v-col>
       </template>
     </v-row>
-    <v-infinite-scroll v-if="searchIsComplete" :items="jobs" class="overflow-x-hidden" :onLoad="handleScroll">
+    <v-infinite-scroll v-if="searchIsComplete && jobs?.length > 0" :items="jobs" class="overflow-x-hidden"
+      :onLoad="handleScroll">
       <v-row class="overflow-x-hidden">
         <v-col cols="12" md="6" v-for="job in jobs" :key="job.id">
           <job-card :job="job"></job-card>

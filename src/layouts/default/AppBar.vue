@@ -11,7 +11,10 @@
 
     </v-toolbar-title>
     <v-spacer></v-spacer>
-
+    
+    <a href="/about">
+      <v-btn text color="background" prepend-icon="mdi-help-circle-outline"> Ajuda</v-btn>
+    </a>
 
   </v-app-bar>
 </template>
