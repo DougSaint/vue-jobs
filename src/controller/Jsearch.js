@@ -17,7 +17,6 @@ class JSearchController {
   });
   getApiKey = () => {
     const key = localStorage.getItem("apiKey");
-    console.log(key);
     if (key) {
       this.API_KEY = key;
     }

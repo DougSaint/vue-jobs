@@ -59,11 +59,10 @@
             </template>
         </div>
         <v-card-actions>
-            <router-link :to="{ name: 'job', params: { id: job.job_id } }">
-                <v-btn color="background" variant="outlined" class="rounded-lg" append-icon="mdi-arrow-right">Ver
+            <router-link :to="`job-details/${job.job_id}`">
+                <v-btn color="background" variant="outlined" class="ml-2 class rounded-lg" append-icon="mdi-arrow-right">Ver
                     detalhes</v-btn>
             </router-link>
-            
         </v-card-actions>
     </v-card>
 </template>
