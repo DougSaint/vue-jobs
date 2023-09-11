@@ -43,7 +43,7 @@
           <v-skeleton-loader type="card" class="mt-5" color="primary"></v-skeleton-loader>
         </v-col>
       </template>
-      <template v-if="jobs?.length === 0 && searchIsComplete">
+      <template v-if="jobs?.length === 0 && searchIsComplete && !error">
         <v-col cols="12">
           <v-alert type="error" dismissible>
             <span class="text-accent">Ops!</span> Não encontramos nenhuma vaga
@@ -56,6 +56,16 @@
           <h2 class="text-accent text-center text-2xl">Vagas encontradas</h2>
         </v-col>
       </template>
+    </v-row>
+    <v-row v-if="error">
+      <v-col>
+        <p>
+          Houve um erro ao realizar a busca, considere alterar a chave da API.
+        </p>
+        <router-link class="text-blue-500 hover:underline" to="/about">Alterar chave da API</router-link>
+      </v-col>
+
+
     </v-row>
     <v-infinite-scroll v-if="searchIsComplete && jobs?.length > 0" :items="jobs" class="overflow-x-hidden"
       :onLoad="handleScroll">
@@ -71,6 +81,7 @@
 <script setup>
 import { ref } from "vue";
 import SearchJ from "../controller/Jsearch.js";
+import router from '../router';
 import JobCard from "@/components/JobCard.vue";
 
 const searchInput = ref("");
@@ -78,7 +89,7 @@ const loading = ref(false);
 const searchIsComplete = ref(false);
 const jobs = ref([]);
 const actualPage = ref(1);
-
+const error = ref(null);
 /* Filters */
 
 const searchTime = ref("all");
@@ -116,25 +127,37 @@ const finishSearch = () => {
 
 const searchJob = async () => {
   loading.value = true;
-  const result = await SearchJ.search({
-    page: 1,
-    query: searchInput.value,
-    remote_jobs_only: onlyRemoteJobs.value,
-    date_posted: searchTime.value,
-  });
-  jobs.value = result.data;
+  try {
+    const result = await SearchJ.search({
+      page: 1,
+      query: searchInput.value,
+      remote_jobs_only: onlyRemoteJobs.value,
+      date_posted: searchTime.value,
+    });
+    jobs.value = result.data;
+  } catch (err) {
+    error.value = "Não foi possível realizar a busca, tente criar uma nova chave da API."
+    loading.value = false;
+  }
+
+
   finishSearch();
 };
 
 const handleScroll = async ({ done }) => {
   actualPage.value++;
-  const res = await SearchJ.search({
-    page: actualPage.value,
-    query: searchInput.value,
-    remote_jobs_only: onlyRemoteJobs.value,
-    date_posted: searchTime.value,
-  });
-  jobs.value.push(...res?.data);
+  try {
+    const result = await SearchJ.search({
+      page: actualPage.value,
+      query: searchInput.value,
+      remote_jobs_only: onlyRemoteJobs.value,
+      date_posted: searchTime.value,
+    });
+    jobs.value = [...jobs.value, ...result.data];
+  } catch (err) {
+    error.value = "Não foi possível realizar a busca, tente criar uma nova chave da API."
+    loading.value = false;
+  }
   done("ok");
 };
 </script>
