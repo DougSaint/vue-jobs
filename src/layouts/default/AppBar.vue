@@ -11,10 +11,13 @@
 
     </v-toolbar-title>
     <v-spacer></v-spacer>
-    
-    <a href="/about">
-      <v-btn text color="background" prepend-icon="mdi-help-circle-outline"> Ajuda</v-btn>
-    </a>
+
+    <router-link to="/about">
+      <v-btn text color="background" prepend-icon="mdi-help-circle-outline">
+        Ajuda
+      </v-btn>
+    </router-link>
+
 
   </v-app-bar>
 </template>

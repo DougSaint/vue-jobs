@@ -21,9 +21,7 @@ export default defineConfig({
     }),
   ],
   define: {
-    "process.env": {
-      BASE_URL: "https://vue-jobs.onrender.com",
-    },
+    "process.env": {},
   },
   resolve: {
     alias: {
