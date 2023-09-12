@@ -109,7 +109,7 @@ const timeOptions = [
   },
   {
     text: "Últimos 30 dias",
-    value: "mounth",
+    value: "month",
   },
   {
     text: "Qualquer período",
