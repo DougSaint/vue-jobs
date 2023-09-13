@@ -14,9 +14,9 @@
                 <v-col cols="2" md="1">
                     <v-skeleton-loader v-if="!jobData?.job_title" width="50px" height="50px"
                         type="image"></v-skeleton-loader>
-                    <v-img v-if="jobData?.employer_logo && jobData.job_title" :src="jobData?.employer_logo"
+                    <v-img v-if="jobData?.employer_logo && jobData?.job_title" :src="jobData?.employer_logo"
                         class="rounded-full" width="50px" height="50px" />
-                    <v-img v-if="!jobData?.employer_logo && jobData.job_title" src="../assets/no-image-company.jpg"
+                    <v-img v-if="!jobData?.employer_logo && jobData?.job_title" src="../assets/no-image-company.jpg"
                         class="rounded-full" width="50px" height="50px" />
                 </v-col>
                 <v-col cols="10" md="2">
@@ -27,8 +27,8 @@
                     </template>
 
                     <template v-else>
-                        <span v-if="jobData.job_city" class="ml-2 pt-2">{{ jobData?.job_city }}</span> <span
-                            v-if="jobData.job_state">{{ jobData?.job_state }}</span>
+                        <span v-if="jobData?.job_city" class="ml-2 pt-2">{{ jobData?.job_city }}</span> <span
+                            v-if="jobData?.job_state">{{ jobData?.job_state }}</span>
                     </template>
 
                     <h3 class="text-primary mt-3 text-md">{{ jobData?.employer_name }}</h3>
@@ -67,7 +67,7 @@
                         </tbody>
                     </v-table>
                     <div class="border border-slate-900"></div>
-                    <v-btn color="primary" class="mt-3" block :href="jobData.job_apply_link">Quero me candidatar</v-btn>
+                    <v-btn color="primary" class="mt-3" block :href="jobData?.job_apply_link">Quero me candidatar</v-btn>
 
                     <section class="mt-3">
                         <template v-if="jobData?.job_required_skills">
@@ -79,10 +79,10 @@
                                 </v-chip>
                             </v-chip-group>
                         </template>
-                        <template v-if="jobData.job_required_skills === null">
+                        <template v-if="jobData?.job_required_skills === null">
                             <p class="text-center text-accent"> Nenhuma habilidade cadastrada </p>
                         </template>
-                        <template v-if="!jobData.job_title">
+                        <template v-if="!jobData?.job_title">
                             <div class="skeleton-chip-group flex align-start w-full">
                                 <v-skeleton-loader v-for="n in 2" :key="n" width="150px" type="chip" />
                             </div>
@@ -114,7 +114,7 @@ function formattedJobDescription(string) {
 onMounted(async () => {
     id.value = route.params.id;
     const result = await SearchJ.getJobDetails(id.value);
-    jobData.value = result.data[0];
+    jobData?.value = result.data[0];
     jobDegree.value = degreeFormmater(jobData?.value?.job_required_education)
     formattedText.value = formattedJobDescription(jobData?.value?.job_description);
 });
