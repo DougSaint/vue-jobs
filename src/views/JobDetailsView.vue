@@ -2,10 +2,18 @@
     <v-card class="mx-auto mt-5" max-width="900px">
         <v-card-title>
             <v-row>
-                <v-col cols="12" md="8">
-                    <v-skeleton-loader v-if="!jobData?.job_title" width="150px" type="subtitle"></v-skeleton-loader>
-                    <h2 class="text-primary mt-3 text-2xl">{{ jobData?.job_title }}</h2>
+                <v-col cols="3" md="1">
+                    <router-link to="/">
+                        <v-btn color="info" size="small" icon="mdi-arrow-left-circle-outline">
+                        </v-btn>
+                    </router-link>
+
                 </v-col>
+                <v-col cols ="8" md="8">
+                    <v-skeleton-loader v-if="!jobData?.job_title" width="150px" type="subtitle"></v-skeleton-loader>
+                    <h2 class="text-primary mt-3 text-2xl default_text">{{ jobData?.job_title }}</h2>
+                </v-col>
+
             </v-row>
         </v-card-title>
 
@@ -114,7 +122,9 @@ function formattedJobDescription(string) {
 onMounted(async () => {
     id.value = route.params.id;
     const result = await SearchJ.getJobDetails(id.value);
-    jobData?.value = result.data[0];
+    if (result?.data[0]) {
+        jobData.value = result?.data[0];
+    }
     jobDegree.value = degreeFormmater(jobData?.value?.job_required_education)
     formattedText.value = formattedJobDescription(jobData?.value?.job_description);
 });

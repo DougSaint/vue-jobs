@@ -70,8 +70,8 @@
     <v-infinite-scroll v-if="searchIsComplete && jobs?.length > 0" :items="jobs" class="overflow-x-hidden"
       :onLoad="handleScroll">
       <v-row class="overflow-x-hidden">
-        <v-col cols="12" md="6" v-for="job in jobs" :key="job.id">
-          <job-card :job="job"></job-card>
+        <v-col cols="12" md="6" v-for="job in jobs" :key="job.job_id">
+          <job-card :job="job" :key="job.job_id"></job-card>
         </v-col>
       </v-row>
     </v-infinite-scroll>
@@ -81,7 +81,6 @@
 <script setup>
 import { ref } from "vue";
 import SearchJ from "../controller/Jsearch.js";
-import router from '../router';
 import JobCard from "@/components/JobCard.vue";
 
 const searchInput = ref("");
@@ -122,7 +121,6 @@ const onlyRemoteJobs = ref(false);
 const finishSearch = () => {
   searchIsComplete.value = true;
   loading.value = false;
-  searchInput.value = "";
 };
 
 const searchJob = async () => {
@@ -134,7 +132,9 @@ const searchJob = async () => {
       remote_jobs_only: onlyRemoteJobs.value,
       date_posted: searchTime.value,
     });
+    console.log(result.data)
     jobs.value = result.data;
+    console.log(jobs.value)
   } catch (err) {
     error.value = "Não foi possível realizar a busca, tente criar uma nova chave da API."
     loading.value = false;

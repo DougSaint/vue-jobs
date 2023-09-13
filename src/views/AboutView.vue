@@ -5,6 +5,12 @@
                 Está com problemas para pesquisar?
             </v-card-title>
             <v-card-subtitle>
+                <router-link to="/" class="text-accent">
+                    <v-btn color="info">
+                        <v-icon class ="mr-2">mdi-arrow-left-circle-outline</v-icon>
+                        Voltar
+                    </v-btn>
+                </router-link>
                 <h2 class="sub-text text-center">
                     Talvez meus créditos com a API tenham expirado.
                 </h2>
@@ -28,7 +34,8 @@
                 <p class="text-center content-text">Clicar em <span class="text-accent">"Subscribe to Test"</span></p>
                 <p class="text-center content-text">Escolher seu usúario</p>
 
-                <p class="text-center content-text">Clicar em subscribe no plano<span class="text-accent"> BASIC </span></p>
+                <p class="text-center content-text">Clicar em subscribe no plano<span class="text-accent"> BASIC </span>
+                </p>
                 <p class="text-center content-text">Depois é só confirmar e voltar neste <a
                         href="https://rapidapi.com/letscrape-6bRBa3QguO5/api/jsearch/" class="text-accent underline"
                         target="_blank"> Link </a></p>
